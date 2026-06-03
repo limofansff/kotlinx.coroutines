@@ -1,0 +1,3 @@
+package = kotlinx.coroutines
+headers = oh_ffrt.h
+linkerOpts = -lffrt.z

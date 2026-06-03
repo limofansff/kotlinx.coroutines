@@ -65,6 +65,12 @@ However, when creating a new compilation, we have to take care of creating a def
  ========================================================================== */
 
 kotlin {
+    ohosArm64 {
+        val main by compilations.getting
+        val interop by main.cinterops.creating {
+            includeDirs("$projectDir/src/nativeInterop/cinterop/cpp/include")
+        }
+    }
     sourceSets {
         // using the source set names from <https://kotlinlang.org/docs/multiplatform-hierarchy.html#see-the-full-hierarchy-template>
         groupSourceSets("concurrent", listOf("jvm", "native"), listOf("common"))
@@ -72,6 +78,7 @@ kotlin {
             // TODO: 'nativeDarwin' behaves exactly like 'apple', we can remove it
             groupSourceSets("nativeDarwin", listOf("apple"), listOf("native"))
             groupSourceSets("nativeOther", listOf("linux", "mingw", "androidNative"), listOf("native"))
+            groupSourceSets("nativeOhos", listOf("ohosArm64"), listOf("native"))
         }
         jvmMain {
             dependencies {
